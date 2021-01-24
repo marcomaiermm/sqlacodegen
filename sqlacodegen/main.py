@@ -16,7 +16,7 @@ def main():
         description="Generates SQLAlchemy model code from an existing database."
     )
     parser.add_argument("url", nargs="?", help="SQLAlchemy url to the database")
-    parser.add_argument("--oracle", nargs="?", help="Oracle Column Fix")
+    parser.add_argument("--oracle", action="store_true", help="Oracle Column Fix")
     parser.add_argument(
         "--version", action="store_true", help="print the version number and exit"
     )

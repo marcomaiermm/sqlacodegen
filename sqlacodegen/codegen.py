@@ -497,7 +497,16 @@ class CodeGenerator(object):
                         # "column IN (0, 1)" into a Boolean
                         match = _re_boolean_check_constraint.match(sqltext)
                         if match:
-                            colname = _re_column_name.match(match.group(1)).group(3)
+                            if not self.oracle:
+                                colname = _re_column_name.match(match.group(1)).group(3)
+                            else:
+                                colname = (
+                                    _re_column_name.match(match.group(1))
+                                    .group(3)
+                                    .lower()
+                                    .strip()
+                                )
+                            # colname = _re_column_name.match(match.group(1)).group(3)
                             table.constraints.remove(constraint)
                             table.c[colname].type = Boolean()
                             continue
